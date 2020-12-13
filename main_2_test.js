@@ -507,6 +507,7 @@ function handle_mes(){
             break;
             default:alert("请输入正确格式的命令");
         }
+        inp.value = '';
         return false;
     }
     
