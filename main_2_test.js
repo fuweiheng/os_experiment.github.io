@@ -40,8 +40,8 @@ function LinkedList() {
         this.tail.next = node;
         // 用this.tail始终指向当前链表的最后一个节点
         this.tail = node;
-        console.log(this.head);
-        console.log(this.tail);
+        //console.log(this.head);
+        //console.log(this.tail);
         //console.log(this.tail); 
     };
     // 在第no个节点后面添加一个新节点
@@ -520,7 +520,7 @@ function addEvent(func){
 addEvent(handle_mes);
 
 
-
+//下面这个是一开始的测试用例
 /*let init = creaPCB("init",0);
 let x = creaPCB("x",1);
 let p = creaPCB("p",1);
@@ -547,6 +547,9 @@ destroy("q");
 time_out();
 time_out();*/
 
+
+
+//本来想做读txt的,但是出现了很多我修不了的bug，所以后来采用输入式的
 /*function command_func(command){
     console.log(RL[0].head.next);
     switch(command[0]){
