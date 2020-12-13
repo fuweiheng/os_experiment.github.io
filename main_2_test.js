@@ -214,7 +214,6 @@ function destroy(PID){
             let res_head =temp.resource.head;
             while(res_head.next != null){
                 console.log(`release ${res_head.next.val[0].RID}`);
-                de_str += 'release '+res_head.next.val[1]+' '+res_head.next.val[0].RID+' ';
                 de_str += release(PID,res_head.next.val[0].RID,res_head.next.val[1]);
                 res_head = res_head.next;
             }
@@ -317,6 +316,7 @@ function release(PID,rid,n){
     let r_head = r_list.head;
 
     let rel_str = '';
+    rel_str += 'release '+n+' '+rid+' \n';
     //从r_list中删除释放结点的占用信息
     while(r_head!=null){
         if(r_head.next.val[0]==PID){
@@ -342,7 +342,7 @@ function release(PID,rid,n){
                 //重新加入ready list
                 RL[pcb.priority].append(pcb);
                 console.log(`wake up process ${pcb.PID}`);
-                rel_str = 'wake up process '+pcb.PID+'\n';
+                rel_str += 'wake up process '+pcb.PID+'\n';
             }
     scheduler();
     return rel_str;
@@ -474,6 +474,12 @@ function handle_mes(){
                 p_input.innerText +='\n';
                 p_output.innerText +=temp_str_out[0];
                 break;
+            case "rel":
+                let p = find_PID_type('running');
+                console.log(p.PID);
+                let rel_id = command_all[1],rel_num = Number(command_all[2]);
+                temp_str_out = release(p.PID,rel_id,rel_num);
+                p_output.innerText +=temp_str_out;
             case "to":
                 p_input.innerText += '\n';
                 temp_str_out = time_out();
