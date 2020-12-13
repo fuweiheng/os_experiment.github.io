@@ -299,7 +299,7 @@ function request(rid,n){
         res_str = scheduler();
         //避免已经block的进程又被改为running
         res_str += 'process '+p.PID+' is blocked'+'\n';
-        p.type = 'blocked';
+        p.type = 'blocked   ';
         return [res_str,2];
     }
 }
@@ -328,6 +328,7 @@ function release(PID,rid,n){
     //唤醒waiting list中的首进程
     if(r.waitingList.head.next!=null&&
         r.waitingList.head.next.val[1]<r.status){
+                console.log("error");
                 let pcb = r.waitingList.head.next.val[0];
                 pcb.type='ready';
                 r.status-=n;
@@ -343,8 +344,8 @@ function release(PID,rid,n){
                 RL[pcb.priority].append(pcb);
                 console.log(`wake up process ${pcb.PID}`);
                 rel_str += 'wake up process '+pcb.PID+'\n';
+                scheduler();
             }
-    scheduler();
     return rel_str;
 }
 
@@ -476,10 +477,10 @@ function handle_mes(){
                 break;
             case "rel":
                 let p = find_PID_type('running');
-                console.log(p.PID);
                 let rel_id = command_all[1],rel_num = Number(command_all[2]);
                 temp_str_out = release(p.PID,rel_id,rel_num);
                 p_output.innerText +=temp_str_out;
+                break;
             case "to":
                 p_input.innerText += '\n';
                 temp_str_out = time_out();
